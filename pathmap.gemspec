@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["charlysisto@gmail.com"]
 
   spec.summary       = %q{map your pathnames}
-  spec.description   = %q{map your pathnames so you can easily batch rename, move, filter... them }
+  spec.description   = %q{map your pathnames so you can batch rename, move, filter them }
   spec.homepage      = "http://www.ruby.simapse"
   spec.license       = "MIT"
 
