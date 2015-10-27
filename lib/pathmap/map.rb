@@ -7,6 +7,7 @@ module Pathmap
       @path = path
       @names = names
       @attributes = {file: "#{path.basename}"}
+      create_method(:file) {"#{path.basename}"}
     end
 
     def each(&block)
