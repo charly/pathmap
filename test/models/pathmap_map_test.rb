@@ -2,6 +2,7 @@ require_relative "../test_helper"
 
 
 describe Pathmap::Map do
+
   let(:path) { Pathname.new("MT/tiff/MT0001/mt1.tif") }
   let(:names) { {folder: /\D++\d{4}$/, project: /^[A-Xing]{2,12}$/} }
 

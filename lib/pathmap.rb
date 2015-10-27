@@ -4,6 +4,7 @@ require "pathmap/version"
 module Pathmap
   require "pathmap/path"
   require "pathmap/map"
+  require "pathmap/transpose"
 
   def self.root
     @@root ||= Pathname.new( File.expand_path("../../", __FILE__))
@@ -23,6 +24,10 @@ module Pathmap
 
   def self.map(*args)
     Pathmap::Map.new(*args)
+  end
+
+  def self.trans(*args)
+    Pathmap::Transpose.new(*args)
   end
 
 end
