@@ -33,6 +33,18 @@ describe Pathmap::Map do
         Hash({folder: "MT0001", project: "MT", file: "mt1.tif"}))
     end
 
+    def test_call_reverse_names
+      map2 = Pathmap.map(path, names: {project: /^[A-Xing]{2,12}$/, folder: /\D++\d{4}$/})
+      map2.call
+      _(map2.attributes[:folder]).must_equal nil
+    end
+  end
+
+  describe "to_trans" do
+    def test_transpose
+      map = Pathmap.map(path, names: names)
+      _(map.to_trans("/:a").class).must_equal Pathmap::Transpose
+    end
   end
 end
 

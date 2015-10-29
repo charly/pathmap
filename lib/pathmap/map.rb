@@ -7,7 +7,11 @@ module Pathmap
       @path = path
       @names = names
       @attributes = {file: "#{path.basename}"}
-      create_method(:file) {"#{path.basename}"}
+      @current_path = path
+    end
+
+    def file
+      "#{path.basename}"
     end
 
     def each(&block)
@@ -15,14 +19,14 @@ module Pathmap
     end
 
     def name(regex)
-      @current_path = find(regex)
-      cp = @current_path and cp.basename.to_s
+      p = find(regex) and p.basename.to_s
     end
 
     def call
       each do |key, value|
-        create_method(key) {name(value)}
-        attributes[key] = name(value)
+        name = name(value)
+        create_method(key) {name}
+        attributes[key] = name
       end
     end
 
@@ -30,11 +34,16 @@ module Pathmap
       self.class.send(:define_method, name, &block)
     end
 
+    def to_trans(template)
+      @transpose_to ||= Transpose.new(map: self, template: template)
+    end
+
+
   private
     def find(regex, direction: :ascend)
-      path.
-        to_enum(direction).
-        detect{|p| p.basename.to_s.match regex}
+      @current_path =  current_path
+        .to_enum(direction)
+          .detect {|p| p.basename.to_s.match regex}
     end
   end
 end
