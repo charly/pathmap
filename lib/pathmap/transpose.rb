@@ -8,23 +8,31 @@ module Pathmap
       map.call
     end
 
-    def attributes
-      @attributes ||= Hash[
+    def nodes
+      @nodes ||= Hash[
         template.split("/").map{|a| [a.gsub(/^:/, ""), get_value(a)] }]
     end
 
     def format(&block)
-      block.call(attributes)
+      block.call(nodes, map.attributes)
+      return self
     end
 
+    def to_path
+      Pathname(nodes.values.join("/"))
+    end
 
-    def call
-      binding.pry
+    def to_dir
+      to_path.dirname
+    end
+
+    def to_s
+      nodes.values.join("/")
     end
 
   private
     def get_value(key)
-      (name = key.gsub!(/^:/, "")) ? map.send(name.to_sym) : key
+      (match = key[/(^:)(\w+)/, 2]) ? map.attributes[match.to_sym] : key
     end
 
   end
