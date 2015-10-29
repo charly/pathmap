@@ -6,7 +6,7 @@ require "pry"
 
 Minitest::Reporters.use! [Minitest::Reporters::SpecReporter.new]
 
-Pathmap.data_path= "test/data"
+# Pathmap.data_path= "test/data"
 
 class Minitest::Test
   extend Minitest::Spec::DSL
